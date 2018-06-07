@@ -10,16 +10,23 @@ def hypothesis(x,theta):
     num =  (1/(1+math.exp(-1*sum))) #Note that math.exp(x) returns e^x
     return num
 
-def costFunction(x,y,theta):
+def totalCostFunction(x,y,theta):
     sum = 0
     i = 0
     for i in range(len(y)):
         if y[i] == 0:
-            sum = sum - math.log(hypothesis(x[i],theta))
+            sum = sum + costFunction(x[i],y[i],theta)
         elif y[i] == 1:
-            sum = sum - math.log(1-hypothesis(x[i],theta))
-    print "COST WHEN theta = " + str(theta) + " is " + str(sum/(len(y)))
-    return sum/(len(y))
+            sum = sum - costFunction(x[i],y[i],theta)
+    # print "COST WHEN theta = " + str(theta) + " is " + str(sum/(len(y)))
+    return sum
+
+def costFunction(x,y,theta):
+    if y == 0:
+        return -1* math.log(hypothesis(x,theta))
+    elif y == 1:
+        return -1* math.log(1-hypothesis(x,theta))
+    # print "COST WHEN theta = " + str(theta) + " is " + str(sum/(len(y)))
 
 def gradientDescent(x,y,theta,alpha,iterations):
     for i in range(iterations):
@@ -30,8 +37,12 @@ def gradientDescentStep(x,y,theta,alpha):
     for j in range(len(theta)):
         sum = 0
         for i in range(len(y)):
-            sum = sum + ((hypothesis(x[i],theta)-y[i])*x[i][j])
+            sum = sum + (costFunction(x[i],y[i],theta)*x[i][j])
+            # sum = sum + ((hypothesis(x[i],theta)-y[i])*x[i][j])
+            # print math.log(hypothesis(x[i],theta))
+            # print sum
         sum = sum*alpha
+
         tmp_theta.append(theta[j] - sum)
     return tmp_theta
 
@@ -78,7 +89,7 @@ def main_function():
     initial_theta = []
     for i in range(len(x[1])):
         initial_theta.append(0)
-    alpha = 0.001
+    alpha = 0.01
     initial_cost = costFunction(x,y,initial_theta)
     print ("STARTING Gradient Descent theta = " + str(initial_theta) + " with cost = " + str(initial_cost))
     iterationNumber = 1500
@@ -93,3 +104,5 @@ if __name__ == "__main__":
     theta = main_function()
     x = [1,0.92684,0.3633]
     print (hypothesis(x,theta))
+
+
