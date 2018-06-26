@@ -15,6 +15,7 @@ public:
     void DFS(int start);
     void DFSstep(int node, bool *visited,int level);
     // void BFSstep(int node, bool *visited, int level)
+    void krushkal();
 };
 
 graph::graph(int vertices){
@@ -109,6 +110,26 @@ void graph::printList(list<int> li){
     cout << endl;
 }
 
+void graph::krushkal(){
+    int *id = new int[vertices+1];
+    for(int i = 1; i < n; ++i)id[i]=i;
+    int root(int x){
+        while(id[x] != x){
+            id[x] = id[id[x]]
+            x = id[x];
+        }
+        return x;
+    }
+    void UNION(int x, int y){
+        int p = root(x);
+        int q = root(y);
+        id[p] = id[y];
+    }
+
+    
+}
+
+
 int main(){
     graph g(7);
     g.addEdge(1,2);
@@ -121,3 +142,5 @@ int main(){
     return 0;
 }
 
+// 1 2 3 4 5 6 7 8 9
+// 9 8 7 6 5
