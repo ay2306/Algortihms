@@ -42,6 +42,7 @@ int main(){
 	}
 	fprintf(fp,"};");
 	fclose(fp);
-	printf("%lld\n",vec.size());
+	// cout << vec.size(); 
+    printf("%lld\n",vec.size());
 return 0;
 }
