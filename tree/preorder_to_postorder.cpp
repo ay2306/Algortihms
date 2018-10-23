@@ -39,33 +39,25 @@
 #define MAXN 25
 using namespace std;
 
-ll readInt () {
-	bool minus = false;
-	int result = 0;
-	char ch;
-	ch = getchar();
- 
-	while (true) {
-		if (ch == '-') break;
-		if (ch >= '0' && ch <= '9') break;
-		ch = getchar();
-	}
- 
-	if (ch == '-') minus = true; else result = ch-'0';
- 
-	while (true) {
-		ch = getchar();
-		if (ch < '0' || ch > '9') break;
-		result = result*10 + (ch - '0');
-	}
- 
-	if (minus)
-		return -result;
-	else
-		return result;
- 
+int search(int *arr, int x, int n){
+    for(int i = 0; i < n; ++i)if(arr[i] == x)return i;
+    return -1;
 }
-int main(){
 
+void 
+
+void solve(){
+    int n;
+    cin >> n;
+    int *pre = new int[n];
+    for(int i = 0; i < n; ++i)cin >> pre[i];
+}
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
     return 0;
 }

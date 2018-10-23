@@ -66,6 +66,53 @@ ll readInt () {
  
 }
 int main(){
-
-    return 0;
+	int n;
+	cin >> n;
+	int two = n/18;
+	int rem = n%18;
+	long long int ans = 1;
+	for(int i = 0; i < two; ++i){
+		ans*=(30);
+	}
+	if(ans == 1)rem--;
+	switch(rem){
+		case 0: ans*=1;
+				break;
+		case 1: ans*=2;
+				break;
+		case 2: ans*=3;
+				break;
+		case 3: ans*=4;
+				break;
+		case 4: ans*=5;
+				break;
+		case 5: ans*=6;
+				break;
+		case 6: ans*=8;
+				break;
+		case 7: ans*=9;
+				break;
+		case 8: ans*=10;
+				break;
+		case 9: ans*=12;
+				break;
+		case 10: ans*=15;
+				break;
+		case 11: ans*=16;
+				break;
+		case 12: ans*=18;
+				break;
+		case 13: ans*=20;
+				break;
+		case 14: ans*=21;
+				break;
+		case 15: ans*=24;
+				break;
+		case 16: ans*=25;
+				break;
+		case 17: ans*=27;
+				break;
+	}
+	cout << ans;
+   return 0;
 }

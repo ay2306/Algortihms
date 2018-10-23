@@ -39,33 +39,55 @@
 #define MAXN 25
 using namespace std;
 
-ll readInt () {
-	bool minus = false;
-	int result = 0;
-	char ch;
-	ch = getchar();
- 
-	while (true) {
-		if (ch == '-') break;
-		if (ch >= '0' && ch <= '9') break;
-		ch = getchar();
-	}
- 
-	if (ch == '-') minus = true; else result = ch-'0';
- 
-	while (true) {
-		ch = getchar();
-		if (ch < '0' || ch > '9') break;
-		result = result*10 + (ch - '0');
-	}
- 
-	if (minus)
-		return -result;
-	else
-		return result;
- 
-}
-int main(){
+int block;
 
+struct Query{
+    int l,r;
+};
+
+
+bool compare(Query x, Query y){
+    if(x.l/block != y.l/block)return x.l/block < y.l/block;
+    return x.r < y.r;
+}
+
+int queryResult(int a[], int n, Query q[], int m){
+    block = (int)sqrt(n);
+    sort(q,q+m,compare);
+    cout << "BLOCK = " << block << endl;
+    for(int i = 0; i < m; ++i){
+        cout << "{" << q[i].l << ", " << q[i].r << "}\n";
+    }
+    int currL = 0; 
+    int currR = 0;
+    int currSum = 0;
+    for(int i = 0; i < m; ++i){
+        int L = q[i].l, R = q[i].r;
+        while(currL < L){
+            currSum -= a[currL];
+            currL++;
+        }
+        while(currL > L){
+            currSum += a[currL-1];
+            currL--;
+        }
+        while(currR <= R){
+            currSum += a[currR];
+            currR++;
+        }
+        while(currR > R+1){
+            currSum -= a[currR-1];  
+            currR--;
+        }
+        cout << currSum << endl;
+    }
+}
+
+int main(){
+    int a[] = {1, 1, 2, 1, 3, 4, 5, 2, 8};
+    int n = sizeof(a)/sizeof(a[0]);
+    Query q[] = {{0, 4}, {1, 3}, {2, 4}};
+    int m = sizeof(q)/sizeof(q[0]);
+    queryResult(a,n,q,m);
     return 0;
 }
