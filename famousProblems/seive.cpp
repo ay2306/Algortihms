@@ -33,7 +33,7 @@ using namespace std;
 
 
 int main(){
-	vector<int> vec = sieve(1111112);
+	vector<int> vec = sieve(1000000);
 	FILE *fp;
 	fp = fopen("hehe","w");
 	fprintf(fp,"int vec[] = {%d",vec[0]);

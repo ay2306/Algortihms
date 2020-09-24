@@ -38,34 +38,29 @@
 #define FILE_READ freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
 #define MAXN 25
 using namespace std;
-
-ll readInt () {
-	bool minus = false;
-	int result = 0;
-	char ch;
-	ch = getchar();
- 
-	while (true) {
-		if (ch == '-') break;
-		if (ch >= '0' && ch <= '9') break;
-		ch = getchar();
-	}
- 
-	if (ch == '-') minus = true; else result = ch-'0';
- 
-	while (true) {
-		ch = getchar();
-		if (ch < '0' || ch > '9') break;
-		result = result*10 + (ch - '0');
-	}
- 
-	if (minus)
-		return -result;
-	else
-		return result;
- 
+V<int> post_order;
+int search(int *arr, int x, int n){
+    for(int i = 0; i < n; ++i)if(arr[i] == x)return i;
+    return -1;
 }
-int main(){
 
+void printPostOrder(int *in, int *pre, int n){
+    int root = search(in,pre[0],n);
+    if(root != 0){
+        printPostOrder(in,pre+1,root);
+    }
+    if(root != n-1){
+        printPostOrder(in+root+1,pre+root+1,n-root-1);
+    }
+    post_order.pb(pre[0]);
+}
+
+int main(){
+    int in[] = {4,2,5,1,3,6};
+    int pre[] = {1,2,4,5,3,6};
+    int n = sizeof(in)/sizeof(in[0]);
+    printPostOrder(in, pre, n);
+    for(int i = 0; i < post_order.size(); ++i)cout << post_order[i] << " ";
+    cout << "\n";
     return 0;
 }
